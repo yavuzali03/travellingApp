@@ -1,11 +1,11 @@
-const Auth = require("../models/auth.js");
+const Auth = require("../models/User.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 
 const register = async (req, res) => {
     try {
-        const {username, email, password} = req.body;
+        const {username, firstName, lastName, email,phoneNumber,password} = req.body;
         const user = await Auth.findOne({email})
 
         if (user) {
@@ -17,7 +17,7 @@ const register = async (req, res) => {
 
         const passwordHash = await bcrypt.hash(password, 12);
 
-        const newUser = await Auth.create({username, email, password : passwordHash})
+        const newUser = await Auth.create({username, firstName, lastName, email,phoneNumber, password : passwordHash})
 
         const userToken = await jwt.sign({id : newUser.id},process.env.SECRET_TOKEN , {expiresIn: "1h"});
 

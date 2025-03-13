@@ -1,10 +1,15 @@
-import {View , Text} from "react-native";
+
+import {NavigationContainer} from "@react-navigation/native";
+import {RootTabs} from "./src/navigations/navigation";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
 
 const App = () => {
   return (
-      <View style={{flex : 1,justifyContent: 'center', alignItems: 'center'}}>
-        <Text style = {{color : "black"}}>asdas </Text>
-      </View>
+      <GestureHandlerRootView style={{flex: 1}}>
+        <NavigationContainer>
+            <RootTabs/>
+        </NavigationContainer>
+      </GestureHandlerRootView>
   )
 }
 export default App;
