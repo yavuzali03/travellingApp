@@ -10,13 +10,14 @@ import { MyTrips } from "../screens/myTrips";
 import { CreateTrips } from "../screens/createTrips";
 import { StyleSheet, TouchableOpacity, View,Text } from "react-native";
 import {NavigationTabBar} from "./navigationTabBar";
+import {Onboarding} from "../components/onboarding/onboarding";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 
 
-function HomeTabs() {
+export function HomeTabs() {
     return (
         <Tab.Navigator
             tabBar={(props) => <NavigationTabBar {...props} />}
@@ -35,12 +36,16 @@ function HomeTabs() {
 
 export function RootStack() {
     return (
-        <Stack.Navigator initialRouteName="registerScreen">
-            <Stack.Screen name="homeScreen" component={HomeTabs} options={{ headerShown: false }} />
+        <Stack.Navigator>
             <Stack.Screen name="registerScreen" component={Register} options={{ headerShown: false }} />
             <Stack.Screen name="loginScreen" component={Login} options={{ headerShown: false }} />
+            <Stack.Screen name="homeScreen" component={HomeTabs} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
+}
+
+export function LoginNavigator() {
+
 }
 
 const styles = StyleSheet.create({

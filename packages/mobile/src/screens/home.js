@@ -6,11 +6,11 @@ export const Home = ()=>{
     const navigation = useNavigation();
 
     const {user} = useUser()
-    console.log("homescreen : ",user)
+    console.log("homescreen 1: ",user)
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text>hoşgeldiniz{user.user.username}</Text>
+            <Text>hoşgeldiniz</Text>
         </SafeAreaView>
     )
 }
