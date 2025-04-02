@@ -4,6 +4,9 @@ const dotenv = require('dotenv');
 const db =require('./config/database.js');
 const Auth = require('./routes/auth.js');
 const Trip = require('./routes/trip.js');
+const Friend = require('./routes/friends.js');
+const User = require('./routes/user.js');
+
 const socketIo = require('./config/socket.js');
 
 
@@ -23,6 +26,8 @@ const socketio = socketIo(app);
 
 app.use("/api",Auth);
 app.use("/api",Trip);
+app.use("/api",Friend);
+app.use("/api",User);
 
 app.get('/api', (req, res) => {
     res.json({message: "api isteği"});
