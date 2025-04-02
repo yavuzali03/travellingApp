@@ -1,8 +1,9 @@
 import {Dimensions, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import useAuthViewModels from "../viewmodels/authViewModels";
+import useAuthViewModels from "../viewmodels/authViewModel";
 import {useNavigation} from "@react-navigation/native";
 import React, {useState} from "react";
 import {useUser} from "../contexts/userContext";
+import {ButtonFilled} from "../components/buttonFilled";
 
 export const Login = () => {
     const { handleLogin, loading, error } = useAuthViewModels();
@@ -19,8 +20,11 @@ export const Login = () => {
         const user = await handleLogin({
             username, email, password,
         });
+
+        if (user) {
             setUser(user);
-        navigation.navigate("homeScreen");
+            navigation.navigate("homeScreen");
+        }
 
     };
 
@@ -70,11 +74,9 @@ export const Login = () => {
                 </View>
 
 
-                <TouchableOpacity onPress={()=> loginUser()}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText}>Giriş yap</Text>
-                    </View>
-                </TouchableOpacity>
+                <ButtonFilled onPress={()=>loginUser()} title={"Giriş yap"} />
+
+
 
                 <Text style={[styles.text , {marginTop : 20}]}>Zaten hesabım var
                     {

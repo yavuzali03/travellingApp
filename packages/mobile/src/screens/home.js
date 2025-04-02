@@ -1,6 +1,9 @@
 import {View, Text, SafeAreaView,StyleSheet} from "react-native";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {useUser} from "../contexts/userContext";
+import {SearchBar} from "../components/searchBar";
+import {TopBar} from "../components/topBar";
+
 
 export const Home = ()=>{
     const navigation = useNavigation();
@@ -10,7 +13,10 @@ export const Home = ()=>{
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text>hoşgeldiniz</Text>
+            <View style={styles.container}>
+                <SearchBar />
+                <Text>hoşgeldiniz</Text>
+            </View>
         </SafeAreaView>
     )
 }
@@ -18,7 +24,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#FFFFF8",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center"
     }
 })

@@ -11,7 +11,7 @@ import {
     View
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import useAuthViewModels from "../viewmodels/authViewModels";
+import useAuthViewModels from "../viewmodels/authViewModel";
 import {BaseRouter, useNavigation} from "@react-navigation/native";
 
 

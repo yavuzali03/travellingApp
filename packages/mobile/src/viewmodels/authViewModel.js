@@ -2,7 +2,6 @@ import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {loginUser, registerUser} from "../services/authServices";
 import {useNavigation} from "@react-navigation/native";
-import {RootStack} from "../navigations/navigation";
 import {useUser} from "../contexts/userContext";
 
 
@@ -42,13 +41,13 @@ const useAuthViewModel = () => {
 
             if (response && response.token  && response.user) {
 
-                await AsyncStorage.setItem("authToken", JSON.stringify(response.token));
+                await AsyncStorage.setItem("authToken", response.token);
                 await AsyncStorage.setItem("userData", JSON.stringify(response.user));
                 await AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
 
-                setUser(response);
+                setUser(response.user);
 
-                return response;
+                return response.user;
 
             } else {
                 setError("Giriş başarısız. Geçerli bir yanıt alınamadı.");

@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
             try {
                 const userData = await AsyncStorage.getItem("userData");
                 const isLogged = await AsyncStorage.getItem("isLoggedIn");
-                setIsLoggedIn(isLogged === 'true');  // 'true' olarak kaydedilmişse, boolean olarak doğru
+                setIsLoggedIn(isLogged === 'true');
                 if (userData) {
                     setUser(JSON.parse(userData));
                 }
