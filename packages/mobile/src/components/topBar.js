@@ -3,7 +3,15 @@ import {useNavigation} from "@react-navigation/native";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 
 
-export const TopBar = ({isBackground , title , buttonNumber ,leftOnePress ,rightOnePress , leftIcon , rightIcon})=>{
+export const TopBar = ({
+                           isBackground = false,
+                           title = '',
+                           buttonNumber = 0,
+                           leftOnePress = () => {},
+                           rightOnePress = () => {},
+                           leftIcon = null,
+                           rightIcon = null
+                       })=>{
 
     const backgroundColor = isBackground ? "rgba(178, 180, 182, 0.5)" : null;
 
@@ -13,7 +21,7 @@ export const TopBar = ({isBackground , title , buttonNumber ,leftOnePress ,right
             {buttonNumber === 1 ?(
                 <View style={styles.container}>
                     <TouchableOpacity onPress={()=>leftOnePress} style={[styles.button , {backgroundColor : backgroundColor ,left : 20}]}>
-                        <FontAwesomeIcon icon={leftIcon} size={24} color={"#313335"}/>
+                        {leftIcon && <FontAwesomeIcon icon={leftIcon} size={24} color={"#313335"}/>}
                     </TouchableOpacity>
 
                     <Text style={styles.buttonText}>{title}</Text>
@@ -22,13 +30,13 @@ export const TopBar = ({isBackground , title , buttonNumber ,leftOnePress ,right
                 (
                     <View style={styles.container}>
                         <TouchableOpacity onPress={()=>leftOnePress} style={[styles.button , {backgroundColor : backgroundColor,left : 20}]}>
-                            <FontAwesomeIcon icon={leftIcon} size={24} color={backgroundColor ? "#FFFFF8" : "#313335"}/>
+                            {leftIcon && <FontAwesomeIcon icon={leftIcon} size={24} color={backgroundColor ? "#FFFFF8" : "#313335"}/>}
                         </TouchableOpacity>
 
                         <Text style={styles.buttonText}>{title}</Text>
 
                         <TouchableOpacity onPress={()=>rightOnePress} style={[styles.button , {backgroundColor : backgroundColor,right :20}]}>
-                            <FontAwesomeIcon icon={rightIcon} size={24} color={backgroundColor ? "#FFFFF8" : "#313335"}/>
+                            {rightIcon && <FontAwesomeIcon icon={rightIcon} size={24} color={backgroundColor ? "#FFFFF8" : "#313335"}/>}
                         </TouchableOpacity>
                     </View>
                 )

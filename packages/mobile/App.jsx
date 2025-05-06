@@ -3,11 +3,14 @@ import { HomeTabs, RootStack } from "./src/navigations/navigation";
 import { UserProvider, useUser } from "./src/contexts/userContext";
 import { useEffect, useState } from "react";
 import {ActivityIndicator, View} from "react-native";
-import {getUserData} from "./src/viewmodels/userViewModel";
+import {StyleProvider} from "./src/contexts/styleContext";
+import useUserViewModel from "./src/viewmodels/userViewModel";
+import {navigationRef} from "./src/navigations/navigationRef";
 
 const App = () => {
     const [loading, setLoading] = useState(true);
     const { setUser, isLoggedIn, setIsLoggedIn } = useUser();
+    const {getUserData} = useUserViewModel();
 
     useEffect(() => {
         getUserData({ setUser, setIsLoggedIn, setLoading });
@@ -23,14 +26,17 @@ const App = () => {
     }
 
     return (
-        <NavigationContainer>
-            {isLoggedIn ? <HomeTabs /> : <RootStack />}
+        <NavigationContainer ref={navigationRef}>
+            <RootStack isLoggedIn={isLoggedIn} />
         </NavigationContainer>
+
     );
 };
 
 export default () => (
     <UserProvider>
+        <StyleProvider>
         <App />
+        </StyleProvider>
     </UserProvider>
 );

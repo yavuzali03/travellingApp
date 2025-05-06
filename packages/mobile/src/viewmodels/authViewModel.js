@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {loginUser, registerUser} from "../services/authServices";
 import {useNavigation} from "@react-navigation/native";
 import {useUser} from "../contexts/userContext";
+import {navigationRef} from "../navigations/navigationRef";
 
 
 const useAuthViewModel = () => {
@@ -37,6 +38,7 @@ const useAuthViewModel = () => {
         setLoading(true);
         setError(null);
         try {
+            console.log("çalışıyom")
             const response = await loginUser(credentials);
 
             if (response && response.token  && response.user) {
@@ -63,16 +65,10 @@ const useAuthViewModel = () => {
         setLoading(true);
         setError(null);
         try {
-            await AsyncStorage.removeItem('authToken');
-            await AsyncStorage.removeItem('userData');
-            await AsyncStorage.removeItem('isLoggedIn');
+            await AsyncStorage.multiRemove(['authToken', 'userData', 'isLoggedIn']);
             setUser(null);
             setIsLoggedIn(false);
 
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'loginScreen' }]  // 'loginScreen' rotasına yönlendir
-            });
 
         }catch (err) {
             setError(err.message);

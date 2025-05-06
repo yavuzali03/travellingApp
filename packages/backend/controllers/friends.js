@@ -133,5 +133,50 @@ const declineFriendRequest = async (req, res) => {
 
 
 
+const getFriends = async (req, res) => {
+    try {
+        const userId = req.params.userId;
 
-module.exports = {sendFriendRequest, acceptFriendRequest , declineFriendRequest}
+        const user = await User.findById(userId).populate("friends", "-password");
+
+        if (!user) {
+            return res.status(404).json({ message: "Kullanıcı bulunamadı" });
+        }
+
+        return res.status(200).json(user.friends);
+    } catch (err) {
+        console.error("getFriends error:", err.message);
+        return res.status(500).json({ message: "Sunucu hatası" });
+    }
+};
+
+
+const getFriendRequests = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+
+        const user = await User.findById(userId).populate({
+            path: 'friendRequests.friendId', // friendId alanını populate et
+            select: 'firstName lastName email profilePic username', // hangi alanlar dönsün istiyorsan yaz
+        });
+
+        if (!user) {
+            return res.status(404).json({ message: "Kullanıcı bulunamadı" });
+        }
+
+        const receivedRequests = user.friendRequests.filter(
+            (req) => req.direction === "received"
+        );
+
+        return res.status(200).json(receivedRequests);
+    } catch (err) {
+        console.error("getFriendRequests error:", err.message);
+        return res.status(500).json({ message: "Sunucu hatası" });
+    }
+};
+
+
+
+
+
+module.exports = {sendFriendRequest, acceptFriendRequest , declineFriendRequest,getFriends,getFriendRequests}

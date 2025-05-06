@@ -11,6 +11,8 @@ import { CreateTrips } from "../screens/createTrips";
 import { StyleSheet, TouchableOpacity, View,Text } from "react-native";
 import {NavigationTabBar} from "./navigationTabBar";
 import {Onboarding} from "../components/onboarding/onboarding";
+import {Friends} from "../screens/friends";
+import {Notifications} from "../screens/notifications";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -34,19 +36,26 @@ export function HomeTabs() {
     );
 }
 
-export function RootStack() {
+export function RootStack({ isLoggedIn }) {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="registerScreen" component={Register} options={{ headerShown: false }} />
-            <Stack.Screen name="loginScreen" component={Login} options={{ headerShown: false }} />
-            <Stack.Screen name="homeScreen" component={HomeTabs} options={{ headerShown: false }} />
+            {isLoggedIn ? (
+                <>
+                    <Stack.Screen name="homeScreen" component={HomeTabs} options={{ headerShown: false }} />
+                    <Stack.Screen name="friendsScreen" component={Friends} options={{ headerShown: false }} />
+                    <Stack.Screen name="notifications" component={Notifications} options={{ headerShown: false }} />
+
+                </>
+            ) : (
+                <>
+                    <Stack.Screen name="loginScreen" component={Login} options={{ headerShown: false }} />
+                    <Stack.Screen name="registerScreen" component={Register} options={{ headerShown: false }} />
+                </>
+            )}
         </Stack.Navigator>
     );
 }
 
-export function LoginNavigator() {
-
-}
 
 const styles = StyleSheet.create({
     shadow: {

@@ -6,7 +6,7 @@ const Auth = require('./routes/auth.js');
 const Trip = require('./routes/trip.js');
 const Friend = require('./routes/friends.js');
 const User = require('./routes/user.js');
-
+const Search = require('./routes/searchUsers.js');
 const socketIo = require('./config/socket.js');
 
 
@@ -28,6 +28,7 @@ app.use("/api",Auth);
 app.use("/api",Trip);
 app.use("/api",Friend);
 app.use("/api",User);
+app.use("/api",Search);
 
 app.get('/api', (req, res) => {
     res.json({message: "api isteği"});

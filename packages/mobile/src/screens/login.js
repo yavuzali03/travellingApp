@@ -10,20 +10,20 @@ export const Login = () => {
 
     const navigation = useNavigation();
 
-    const { setUser } = useUser();  // useUser ile context'e erişiyoruz
+    const { setUser, setIsLoggedIn } = useUser();
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+
     const loginUser = async () => {
         const user = await handleLogin({
             username, email, password,
         });
-
         if (user) {
             setUser(user);
-            navigation.navigate("homeScreen");
+            setIsLoggedIn(true);
         }
 
     };
@@ -34,6 +34,8 @@ export const Login = () => {
 
             <View style={styles.container}>
                 <Text style={[styles.text,{fontSize:40 , fontWeight : "bold" , paddingBottom : 50}]}>Giriş yap</Text>
+
+                <View style={{marginBottom : 20}}>
                 <View style={styles.textInputView}>
                     <TextInput
                         keyboardType="default"
@@ -72,15 +74,15 @@ export const Login = () => {
                         onChangeText={(text) => setPassword(text)}
                     />
                 </View>
+                </View>
+
+                <ButtonFilled onPress={()=>loginUser()} title={"Giriş yap"} width={width*0.8} height={50} />
 
 
-                <ButtonFilled onPress={()=>loginUser()} title={"Giriş yap"} />
 
-
-
-                <Text style={[styles.text , {marginTop : 20}]}>Zaten hesabım var
+                <Text style={[styles.text , {marginTop : 20}]}>Hesabın yok mu?
                     {
-                        <Text style={[styles.text , {color :"#2D2D74" , fontWeight:"bold"}]} onPress={()=>navigation.navigate("loginScreen")}> giriş yap</Text>
+                        <Text style={[styles.text , {color :"#2D2D74" , fontWeight:"bold"}]} onPress={()=>navigation.navigate("registerScreen")}> kaydol</Text>
                     }
                 </Text>
 
