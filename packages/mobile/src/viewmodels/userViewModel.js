@@ -1,10 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {getUser} from "../services/userServices";
+import {getCurrentUser, getUser} from "../services/userServices";
 
 
 const useUserViewModel = () => {
 
-     const getUserData = async ({ setUser, setIsLoggedIn, setLoading }) => {
+     const getMyData = async ({ setUser, setIsLoggedIn, setLoading }) => {
          try {
              const token = await AsyncStorage.getItem("authToken");
              const isLogged = await AsyncStorage.getItem("isLoggedIn");
@@ -16,9 +16,9 @@ const useUserViewModel = () => {
                  setIsLoggedIn(false);
                  return;
              }
-             console.log("abi buradayım");
-             const userData = await getUser(token);
-             console.log("abi buradayım 2");
+
+             const userData = await getCurrentUser(token);
+
              await AsyncStorage.setItem("userData", JSON.stringify(userData));
              setUser(userData);
              setIsLoggedIn(true);
@@ -33,7 +33,19 @@ const useUserViewModel = () => {
     };
 
 
+    const getUserData = async ({ userId }) => {
+      try {
 
-    return { getUserData};
+          const userData = await getUser(userId);
+          return userData;
+
+      }catch(err) {
+
+      }
+    };
+
+
+
+    return {getMyData ,getUserData};
 };
     export default useUserViewModel;

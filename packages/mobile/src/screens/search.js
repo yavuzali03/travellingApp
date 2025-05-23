@@ -5,11 +5,12 @@ import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
 import {useStyle} from "../contexts/styleContext";
+import {RenderItem} from "../components/renderItem";
 
 export const Search = ({ searchValue }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    const test_API_URL = process.env.test_API_URL;
     const styleContext = useStyle();
     const {width,height} = useWindowDimensions();
     const debouncedSearch = debounce(async (text) => {
@@ -21,7 +22,7 @@ export const Search = ({ searchValue }) => {
 
         try {
             setLoading(true);
-            const response = await axios.get(`http://3.78.68.196:5000/api/search?query=${text}`);
+            const response = await axios.get(`${test_API_URL}/search?query=${text}`);
             setResults(response.data);
         } catch (error) {
             console.error('Arama hatası:', error);
@@ -42,21 +43,7 @@ export const Search = ({ searchValue }) => {
         };
     }, []);
 
-    const renderItem = ({item}) => {
-        return (
-            <View style={styleContext.renderItemContainer}>
-                <View style={{flexDirection: "row" , alignItems: "center" , justifyContent: "center" ,}}>
-                    <View style={{width : width*0.1 , height : width*0.1  , borderRadius : width*0.05 , backgroundColor : "red"}}></View>
-                    <Text style={[styleContext.title ,{paddingLeft : 10}]}>{item.username}</Text>
-                </View>
-                <TouchableOpacity>
-                    <FontAwesomeIcon icon={faEllipsisVertical} size={24} color={"#313335"}/>
-                </TouchableOpacity>
 
-            </View>
-
-        )
-    }
 
     console.log(results);
 
@@ -68,7 +55,7 @@ export const Search = ({ searchValue }) => {
                 <FlatList
                     data={results}
                     keyExtractor={(item) => item._id}
-                    renderItem={renderItem}
+                    renderItem={({ item }) => <RenderItem item={item} />}
                 />
             )}
         </View>

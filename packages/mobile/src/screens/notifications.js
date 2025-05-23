@@ -12,7 +12,6 @@ import useFriendsViewModel from "../viewmodels/friendsViewModel";
 
 export const Notifications = () => {
     const {user} = useUser()
-    console.log("notifications 2: ",user)
     const styleContext = useStyle();
     const {getFriendRequestsData ,acceptRequest,declineRequest} = useFriendsViewModel();
 

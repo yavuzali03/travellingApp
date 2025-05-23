@@ -10,10 +10,11 @@ import {navigationRef} from "./src/navigations/navigationRef";
 const App = () => {
     const [loading, setLoading] = useState(true);
     const { setUser, isLoggedIn, setIsLoggedIn } = useUser();
-    const {getUserData} = useUserViewModel();
+    const {getMyData} = useUserViewModel();
 
     useEffect(() => {
-        getUserData({ setUser, setIsLoggedIn, setLoading });
+        getMyData({ setUser, setIsLoggedIn, setLoading });
+
     }, []);
 
     if (loading) {

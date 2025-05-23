@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     phoneNumber: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    profileImage: { type: String, default: null },
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     trips: [{ type: mongoose.Schema.Types.ObjectId, ref: "Trip" }],
     friendRequests: [

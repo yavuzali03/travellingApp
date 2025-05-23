@@ -5,7 +5,7 @@ import { faBell } from "@fortawesome/free-solid-svg-icons";
 export const IconWithBadge = ({ icon, badgeCount ,onPress}) => {
     return (
         <TouchableOpacity style={{ width: 30, height: 30, margin: 5 }} onPress={onPress}>
-            <FontAwesomeIcon icon={icon} size={24} color="#313335" />
+            <FontAwesomeIcon icon={icon} size={30} color="#313335" />
             {badgeCount > 0 && (
                 <View style={styles.badge}>
                     <Text style={styles.badgeText}>{badgeCount}</Text>

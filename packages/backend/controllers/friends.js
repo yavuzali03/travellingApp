@@ -1,5 +1,6 @@
 
 const User = require("../models/User.js");
+const mongoose = require("mongoose");
 
 const sendFriendRequest = async (req, res) => {
     const senderId = req.params.userId;        // Giriş yapan kullanıcı ID'si (URL'den geliyor)
@@ -131,6 +132,51 @@ const declineFriendRequest = async (req, res) => {
     }
 };
 
+const cancelFriendRequest = async (req, res) => {
+    const { userId } = req.params;
+    const { friendId } = req.body;
+
+    try {
+        const userObjectId = new mongoose.Types.ObjectId(userId);
+        const friendObjectId = new mongoose.Types.ObjectId(friendId);
+
+
+        const userUpdate = await User.updateOne(
+            { _id: userObjectId, "friendRequests.friendId": friendObjectId, "friendRequests.direction": "sent" },
+            {
+                $pull: {
+                    friendRequests: {
+                        friendId: friendObjectId,
+                        direction: "sent"
+                    }
+                }
+            }
+        );
+
+
+        const friendUpdate = await User.updateOne(
+            { _id: friendObjectId, "friendRequests.friendId": userObjectId, "friendRequests.direction": "received" },
+            {
+                $pull: {
+                    friendRequests: {
+                        friendId: userObjectId,
+                        direction: "received"
+                    }
+                }
+            }
+        );
+
+
+        if (userUpdate.modifiedCount === 0 && friendUpdate.modifiedCount === 0) {
+            return res.status(404).json({ message: "Silinecek istek bulunamadı." });
+        }
+
+        return res.status(200).json({ message: "Arkadaşlık isteği başarıyla geri çekildi." });
+    } catch (err) {
+        console.error("İstek geri çekme hatası:", err);
+        return res.status(500).json({ message: "İstek geri çekilemedi.", error: err.message });
+    }
+};
 
 
 const getFriends = async (req, res) => {
@@ -149,7 +195,6 @@ const getFriends = async (req, res) => {
         return res.status(500).json({ message: "Sunucu hatası" });
     }
 };
-
 
 const getFriendRequests = async (req, res) => {
     try {
@@ -179,4 +224,4 @@ const getFriendRequests = async (req, res) => {
 
 
 
-module.exports = {sendFriendRequest, acceptFriendRequest , declineFriendRequest,getFriends,getFriendRequests}
+module.exports = {sendFriendRequest, acceptFriendRequest , declineFriendRequest,getFriends,getFriendRequests,cancelFriendRequest}

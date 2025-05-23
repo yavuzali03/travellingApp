@@ -17,7 +17,7 @@ export const TopBar = ({
 
     const navigation = useNavigation();
     return (
-        <View >
+        <View>
             {buttonNumber === 1 ?(
                 <View style={styles.container}>
                     <TouchableOpacity onPress={()=>leftOnePress} style={[styles.button , {backgroundColor : backgroundColor ,left : 20}]}>
@@ -29,13 +29,13 @@ export const TopBar = ({
             ) :
                 (
                     <View style={styles.container}>
-                        <TouchableOpacity onPress={()=>leftOnePress} style={[styles.button , {backgroundColor : backgroundColor,left : 20}]}>
+                        <TouchableOpacity onPress={leftOnePress} style={[styles.button , {backgroundColor : backgroundColor,left : 20}]}>
                             {leftIcon && <FontAwesomeIcon icon={leftIcon} size={24} color={backgroundColor ? "#FFFFF8" : "#313335"}/>}
                         </TouchableOpacity>
 
                         <Text style={styles.buttonText}>{title}</Text>
 
-                        <TouchableOpacity onPress={()=>rightOnePress} style={[styles.button , {backgroundColor : backgroundColor,right :20}]}>
+                        <TouchableOpacity onPress={rightOnePress} style={[styles.button , {backgroundColor : backgroundColor,right :20}]}>
                             {rightIcon && <FontAwesomeIcon icon={rightIcon} size={24} color={backgroundColor ? "#FFFFF8" : "#313335"}/>}
                         </TouchableOpacity>
                     </View>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "row",
-        height: 64,
+        height: 60,
         paddingHorizontal : 20
     },
     button: {

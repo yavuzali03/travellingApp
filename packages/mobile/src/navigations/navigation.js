@@ -8,11 +8,15 @@ import { Login } from "../screens/login";
 import { Chats } from "../screens/chats";
 import { MyTrips } from "../screens/myTrips";
 import { CreateTrips } from "../screens/createTrips";
-import { StyleSheet, TouchableOpacity, View,Text } from "react-native";
+import {StyleSheet, TouchableOpacity, View, Text, Settings} from "react-native";
 import {NavigationTabBar} from "./navigationTabBar";
-import {Onboarding} from "../components/onboarding/onboarding";
 import {Friends} from "../screens/friends";
 import {Notifications} from "../screens/notifications";
+import {ChatScreen} from "../screens/chatScreen";
+import {UserSettings} from "../screens/userSettings";
+import {MessageInfoScreen} from "../screens/messageInfoScreen";
+import {MediaPreview} from "../screens/mediaPreview";
+import {TripDashboard} from "../screens/tripDashboard";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -44,7 +48,12 @@ export function RootStack({ isLoggedIn }) {
                     <Stack.Screen name="homeScreen" component={HomeTabs} options={{ headerShown: false }} />
                     <Stack.Screen name="friendsScreen" component={Friends} options={{ headerShown: false }} />
                     <Stack.Screen name="notifications" component={Notifications} options={{ headerShown: false }} />
-
+                    <Stack.Screen name="profile" component={Profile} options={{ headerShown: false }} />
+                    <Stack.Screen name="chat" component={ChatScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="settings" component={UserSettings} options={{ headerShown: false }} />
+                    <Stack.Screen name="messageInfo" component={MessageInfoScreen} options={{ headerShown: false }} />
+                    <Stack.Screen name="mediaPreview" component={MediaPreview} options={{ headerShown: false }} />
+                    <Stack.Screen name="tripDashboard" component={TripDashboard} options={{ headerShown: false }} />
                 </>
             ) : (
                 <>

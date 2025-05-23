@@ -1,4 +1,10 @@
-import {acceptFriendRequest, declineFriendRequest, getFriendRequests, getFriends} from "../services/friendsServices";
+import {
+    acceptFriendRequest, cancelFriendRequest,
+    declineFriendRequest,
+    getFriendRequests,
+    getFriends,
+    sentFriendRequest
+} from "../services/friendsServices";
 
 
 const useFriendsViewModel = ()=>{
@@ -25,6 +31,15 @@ const useFriendsViewModel = ()=>{
 
     }
 
+    const sendRequest = async (userId, friendId) => {
+        try {
+            const response = await  sentFriendRequest(userId, friendId);
+            return response;
+        }catch (err){
+            console.log(err.message);
+        }
+    }
+
     const acceptRequest = async (userId, friendId) => {
         try {
             const response = await acceptFriendRequest(userId, friendId);
@@ -42,7 +57,16 @@ const useFriendsViewModel = ()=>{
         }
     }
 
-    return {getFriendsData,getFriendRequestsData ,acceptRequest,declineRequest};
+    const cancelRequest = async (userId, friendId) => {
+       try {
+           const response = await cancelFriendRequest(userId, friendId);
+           return response;
+       }catch (err){
+           console.log(err.message);
+       }
+    }
+
+    return {getFriendsData,getFriendRequestsData ,acceptRequest,declineRequest ,sendRequest ,cancelRequest};
 }
 
 

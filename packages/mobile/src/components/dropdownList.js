@@ -15,12 +15,12 @@ export const DropdownList = ({data ,value ,setValue}) => {
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
         dropdownStyle={{
-            backgroundColor: "rgba(230, 230, 223, 0.4)",
+            backgroundColor: "#F3F3EB",
             borderRadius: 16,
         }}
-        containerStyle={{backgroundColor: "rgba(230, 230, 223, 0.4)"}}
+        containerStyle={{backgroundColor: "#F3F3EB"}}
 
-        itemTextStyle={{ color: "#313335" }} // yazı rengi (isteğe bağlı)
+        itemTextStyle={{ color: "#313335" }}
         iconStyle={styles.iconStyle}
         data={data}
         search
@@ -36,7 +36,7 @@ export const DropdownList = ({data ,value ,setValue}) => {
         renderSelectedItem={(item, unSelect) => (
             <TouchableOpacity
                 style={{
-                    backgroundColor: 'rgba(230, 230, 223, 0.4)',
+                    backgroundColor: '#F3F3EB',
                     paddingHorizontal: 10,
                     paddingVertical: 6,
                     borderRadius: 12,
@@ -57,7 +57,7 @@ export const DropdownList = ({data ,value ,setValue}) => {
                     flexDirection: 'row',
                     alignItems: 'center',
                     padding: 12,
-                    backgroundColor: selected ? '#E6E6DF' : 'rgba(230, 230, 223, 0.4)',
+                    backgroundColor: selected ? '#E6E6DF' : '#F3F3EB',
                 }}
             >
                 <Text style={[styleContext.text,{flex : 1,marginRight : 6}]}>{item.label}</Text>

@@ -27,4 +27,17 @@ const getCurrentUser = async (req, res) => {
     }
 };
 
-module.exports = {getCurrentUser};
+const getUser = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+
+        const user = await User.findById(userId).select("-password");
+
+        return res.status(200).json(user);
+
+    }catch (err){
+        return res.status(404).json({ message: "Kullanıcı bulunamadı" });
+    }
+}
+
+module.exports = {getCurrentUser ,getUser};

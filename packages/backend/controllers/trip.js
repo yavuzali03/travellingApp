@@ -1,25 +1,41 @@
 const Trip = require("../models/Trip.js");
 const Expense = require("../models/Expenses.js");
-const mongoose = require("mongoose");
-
+const MessageRoom = require("../models/MessageRoom.js");
 
 const createTrip = async (req, res) => {
     try {
-        const {creator, title ,description,participants} = req.body;
-        if (!participants) {
-            return res.status(500).json({message: "en az 1 katılımcı olmalıdır"});
+        const { creator, title, description, participants, groupPhoto,startDate, endDate } = req.body;
+
+        if (!participants || participants.length === 0) {
+            return res.status(400).json({ message: "En az 1 katılımcı olmalıdır." });
         }
 
-        const newTrip = await Trip.create({creator, title ,description,participants});
+        const newTrip = await Trip.create({ creator, title, description, participants , profileImage: groupPhoto || null , startDate, endDate });
+
+        console.log("📥 Gelen trip verisi:", req.body);
+
+        if(newTrip) {
+            await MessageRoom.create({
+                roomId: `trip_${newTrip._id}`,
+                roomType: "group",
+                participants,
+                groupName: title,
+                groupPhoto: groupPhoto || null,
+                messages: []
+            });
+        }
+
 
         return res.status(201).json({
-            message: "yeni gezi oluşturuldu",
+            message: "Yeni gezi ve grup sohbeti oluşturuldu",
             newTrip,
         });
-    }catch(err) {
-        res.status(500).json({message: err.message});
+
+    } catch (err) {
+        console.error("Trip oluşturulurken hata:", err.message);
+        res.status(500).json({ message: err.message });
     }
-}
+};
 const getTrip = async (req, res) => {
     try {
         const {tripId} = req.params;

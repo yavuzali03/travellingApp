@@ -4,10 +4,11 @@ import {useNavigation} from "@react-navigation/native";
 import React, {useState} from "react";
 import {useUser} from "../contexts/userContext";
 import {ButtonFilled} from "../components/buttonFilled";
+import {useStyle} from "../contexts/styleContext";
 
 export const Login = () => {
     const { handleLogin, loading, error } = useAuthViewModels();
-
+    const styleContext = useStyle();
     const navigation = useNavigation();
 
     const { setUser, setIsLoggedIn } = useUser();
@@ -36,7 +37,7 @@ export const Login = () => {
                 <Text style={[styles.text,{fontSize:40 , fontWeight : "bold" , paddingBottom : 50}]}>Giriş yap</Text>
 
                 <View style={{marginBottom : 20}}>
-                <View style={styles.textInputView}>
+                <View style={styleContext.textInputView}>
                     <TextInput
                         keyboardType="default"
                         returnKeyType="next"
@@ -49,7 +50,7 @@ export const Login = () => {
                 </View>
 
 
-                <View style={styles.textInputView}>
+                <View style={styleContext.textInputView}>
                     <TextInput
                         keyboardType="email-address"
                         returnKeyType="go"
@@ -62,7 +63,7 @@ export const Login = () => {
                 </View>
 
 
-                <View style={styles.textInputView}>
+                <View style={styleContext.textInputView}>
                     <TextInput
                         keyboardType="default"
                         returnKeyType="next"
@@ -80,9 +81,9 @@ export const Login = () => {
 
 
 
-                <Text style={[styles.text , {marginTop : 20}]}>Hesabın yok mu?
+                <Text style={[styleContext.text , {marginTop : 20}]}>Hesabın yok mu?
                     {
-                        <Text style={[styles.text , {color :"#2D2D74" , fontWeight:"bold"}]} onPress={()=>navigation.navigate("registerScreen")}> kaydol</Text>
+                        <Text style={[styleContext.text , {color :"#2D2D74" , fontWeight:"bold"}]} onPress={()=>navigation.navigate("registerScreen")}> kaydol</Text>
                     }
                 </Text>
 
@@ -108,34 +109,5 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#FFFFF8",
     },
-    textInput: {
-        width: width * 0.6,
-        color: "gray",
-        fontFamily: "Montserrat-Regular",
-    },
-    textInputView: {
-        margin : 4,
-        backgroundColor: "rgba(230, 230, 223, 0.4)",
-        width: width * 0.8,
-        alignItems: "center",
-        justifyContent: "space-between",
-        flexDirection: "row",
-        borderRadius: 16 ,
-        paddingHorizontal: 10,
 
-    },
-    button: {
-        width: width * 0.8,
-        height: 50,
-        backgroundColor: "#ED1C24",
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 16,
-        marginTop: 20,
-    },
-    buttonText: {
-        fontSize: 18,
-        color: "#FFFFF8",
-        fontWeight : "bold"
-    }
 });

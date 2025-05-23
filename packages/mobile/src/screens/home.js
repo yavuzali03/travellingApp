@@ -13,14 +13,14 @@ import {Search} from "./search";
 export const Home = ()=>{
 
     const navigation = useNavigation();
-    const {user} = useUser()
+    const {user} = useUser();
     const styleContext = useStyle();
     const [searchText, setSearchText] = useState("");
     const [friendsRequest, setFriendsRequest] = useState(null);
 
     const [onSearch, setOnSearch] = useState(false);
 
-    console.log("homescreen 1: ",user)
+    console.log("homescreen 1: ",user._id)
 
     useEffect(() => {
         if (user?.friendRequests) {

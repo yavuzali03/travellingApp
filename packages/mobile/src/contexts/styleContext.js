@@ -44,8 +44,29 @@ export const StyleProvider = ({ children }) => {
             fontSize: 16,
             fontWeight: "bold",
             color: "#313335",
-        }
+        },
+        avatar: {
+            width: width * 0.1,
+            height: width * 0.1,
+            borderRadius: width * 0.05,
+            backgroundColor: "green"
+        },
+        textInput: {
+            width: width * 0.6,
+            color: "gray",
+            fontFamily: "Montserrat-Regular",
+        },
+        textInputView: {
+            margin : 4,
+            backgroundColor: "#F3F3EB",
+            width: width * 0.8,
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexDirection: "row",
+            borderRadius: 16 ,
+            paddingHorizontal: 10,
 
+        },
     });
 
     return (
