@@ -34,7 +34,6 @@ export const MyTrips = ()=>{
         }
         getTrips(user._id)
     }, []);
-    console.log(trips)
 
     const renderItem = ({ item }) => {
         return (

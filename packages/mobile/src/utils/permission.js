@@ -1,4 +1,6 @@
-import { PermissionsAndroid, Platform } from 'react-native';
+import {Alert, Linking, PermissionsAndroid, Platform} from 'react-native';
+import {PERMISSIONS, RESULTS,request} from "react-native-permissions";
+
 
 export const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
@@ -27,25 +29,32 @@ export const requestCameraPermission = async () => {
 export const requestLocationPermission = async () => {
     if (Platform.OS === 'android') {
         try {
-            const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-                {
-                    title: 'Konum Erişimi',
-                    message: 'Harita ve konum paylaşımı için konum iznine ihtiyacımız var.',
-                    buttonNeutral: 'Daha Sonra',
-                    buttonNegative: 'Hayır',
-                    buttonPositive: 'İzin Ver',
-                }
-            );
-            return granted === PermissionsAndroid.RESULTS.GRANTED;
+            const result = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+
+            if (result === RESULTS.GRANTED) {
+                console.log("Konum izni verildi.");
+                return true;
+            } else {
+                Alert.alert("İzin Gerekli", "Konum izni verilmedi.");
+                return false;
+            }
         } catch (err) {
             console.warn(err);
             return false;
         }
     } else {
-        return true;
+        const result = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+
+        if (result === RESULTS.GRANTED) {
+            console.log("Konum izni verildi.");
+            return true;
+        } else {
+            Alert.alert("İzin Gerekli", "Konum izni verilmedi.");
+            return false;
+        }
     }
 };
+
 
 
 export const requestGalleryPermission = async () => {

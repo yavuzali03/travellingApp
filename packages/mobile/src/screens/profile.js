@@ -53,6 +53,8 @@ export const Profile = () => {
         }
     }, []);
 
+    console.log(userData);
+
     const handleSendRequest = async () => {
         try {
             await sendRequest(currentUser._id, userData._id);
@@ -72,7 +74,7 @@ export const Profile = () => {
     }
 
     if (!userData) return <Text>Yükleniyor...</Text>;
-    console.log("image: ",userData)
+
     const roomId = [currentUser._id, userData._id].sort().join("_");
     return (
         <SafeAreaView style={styles.container}>
@@ -88,7 +90,7 @@ export const Profile = () => {
                 <View style={styles.userContainer}>
 
                         <Image
-                            source={{ uri: currentUser.profileImage }}
+                            source={{ uri: userData.profileImage }}
                             style={styles.avatar}
                         />
 
@@ -114,8 +116,9 @@ export const Profile = () => {
                     </>
                 ) : friendStatus === "friend" ? (
                     <>
-                    <ButtonFilled width={width * 0.8} height={50} title={"Arkadaşız la"} />
-                    <ButtonFilled  width={200} height={50} title={"mesaj gönder"} onPress={() =>
+                    <ButtonFilled width={width * 0.8} height={50} title={"Arkadaşsınız"} />
+                        <View style={{margin : 10}}></View>
+                    <ButtonFilled  width={width * 0.8} height={50} title={"mesaj gönder"} onPress={() =>
                         navigation.navigate("chat", {
                             roomId,
                             roomType: "private", // 🔥 bu eksikti

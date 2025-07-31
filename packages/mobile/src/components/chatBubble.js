@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity, Platform} from 'react-native';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCheck, faCheckDouble, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from '@react-navigation/native';
@@ -21,6 +21,16 @@ export const ChatBubble = ({
         minute: '2-digit',
         hour12: false,
     });
+
+    const convertToAccessibleUrl = (url) => {
+        if (!url) return null;
+
+        if (Platform.OS === 'android' && url.includes('localhost')) {
+            return url.replace('localhost', '10.0.2.2');
+        }
+
+        return url;
+    };
 
     const renderContent = () => {
         if (Array.isArray(content)) {
@@ -50,7 +60,7 @@ export const ChatBubble = ({
                     }}
                 >
                     <Image
-                        source={{ uri: content }}
+                        source={{ uri: convertToAccessibleUrl(content) }}
                         style={styles.media}
                         resizeMode="cover"
                     />

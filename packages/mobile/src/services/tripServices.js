@@ -18,9 +18,10 @@ export const createTripService = async (tripData, token) => {
     }
 };
 
-export const getTrip = async (req, res) => {
+export const getTrip = async (tripId) => {
     try {
-
+        const response = await axios.get(`${test_API_URL}/getTrip/${tripId}`);
+        return response.data.trip
     }catch(err) {
 
     }

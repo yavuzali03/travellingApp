@@ -6,11 +6,12 @@ import {ActivityIndicator, View} from "react-native";
 import {StyleProvider} from "./src/contexts/styleContext";
 import useUserViewModel from "./src/viewmodels/userViewModel";
 import {navigationRef} from "./src/navigations/navigationRef";
+import {getMyData} from "./src/utils/getMyData";
 
 const App = () => {
     const [loading, setLoading] = useState(true);
     const { setUser, isLoggedIn, setIsLoggedIn } = useUser();
-    const {getMyData} = useUserViewModel();
+
 
     useEffect(() => {
         getMyData({ setUser, setIsLoggedIn, setLoading });

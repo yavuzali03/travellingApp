@@ -104,7 +104,7 @@ export const ChatScreen = ({ route, navigation }) => {
         );
     };
 
-
+    console.log(messages);
 
     return (
         <View style={[styleContext.container, { width: "100%" ,justifyContent :null , alignItems :null}]}>

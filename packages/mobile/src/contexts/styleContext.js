@@ -12,9 +12,10 @@ export const StyleProvider = ({ children }) => {
             color: "#313335",
         },
         title: {
-            fontSize: 22,
+            fontSize: 20,
             fontWeight: "bold",
             color: "#313335",
+            textAlign : "center",
         },
         button: {
             backgroundColor: "#ED1C24",
@@ -31,7 +32,8 @@ export const StyleProvider = ({ children }) => {
             flex: 1,
             backgroundColor: "#FFFFF8",
             justifyContent: "flex-start",
-            alignItems: "center"
+            alignItems: "center",
+
         },
         renderItemContainer: {
             flexDirection: "row",

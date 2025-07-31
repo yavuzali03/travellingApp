@@ -17,6 +17,7 @@ import {UserSettings} from "../screens/userSettings";
 import {MessageInfoScreen} from "../screens/messageInfoScreen";
 import {MediaPreview} from "../screens/mediaPreview";
 import {TripDashboard} from "../screens/tripDashboard";
+import PlaceDetails from "../screens/placeDetails";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -54,6 +55,7 @@ export function RootStack({ isLoggedIn }) {
                     <Stack.Screen name="messageInfo" component={MessageInfoScreen} options={{ headerShown: false }} />
                     <Stack.Screen name="mediaPreview" component={MediaPreview} options={{ headerShown: false }} />
                     <Stack.Screen name="tripDashboard" component={TripDashboard} options={{ headerShown: false }} />
+                    <Stack.Screen name="placeDetails" component={PlaceDetails} options={{ headerShown: false }} />
                 </>
             ) : (
                 <>

@@ -7,8 +7,8 @@ const getMessages = async (req, res) => {
 
     try {
         const room = await Room.findOne({ roomId })
-            .populate('messages.sender', 'firstName lastName username profileImage')
-            .populate('messages.seenBy.user', 'firstName lastName username profileImage')
+            .populate('messages.sender', 'firstName lastName username profileImage email phoneNumber')
+            .populate('messages.seenBy.user', 'firstName lastName username profileImage email phoneNumber')
             .lean();
 
         if (!room) {
@@ -37,9 +37,9 @@ const getUserRooms = async (req, res) => {
         const userId = req.params.userId;
 
         const rooms = await Room.find({ participants: userId })
-            .populate('participants', 'firstName lastName username profileImage')
-            .populate('messages.sender', 'firstName lastName username profileImage')
-            .populate('messages.seenBy.user', 'firstName lastName username profileImage')
+            .populate('participants', 'firstName lastName username profileImage email phoneNumber')
+            .populate('messages.sender', 'firstName lastName username profileImage email phoneNumber')
+            .populate('messages.seenBy.user', 'firstName lastName username profileImage email phoneNumber')
             .lean();
 
         const roomsWithLastMessageAndUnread = rooms.map(room => {

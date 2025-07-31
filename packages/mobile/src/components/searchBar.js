@@ -1,14 +1,37 @@
-import {View, StyleSheet, Text, Dimensions, TextInput, TouchableOpacity} from "react-native";
 import React, {useState} from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import {
+    View,
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    Dimensions,
+    Keyboard,
+} from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-export const SearchBar = ({value ,setValue, onFocus})=>{
+const { width } = Dimensions.get("window");
+
+export const SearchBar = ({ value, setValue, setOnSearch }) => {
+    const [isFocused, setIsFocused] = useState(false);
+
+    const handleFocus = () => {
+        setIsFocused(true);
+        setOnSearch(true);
+    };
+
+
+    const handleClear = () => {
+        setValue("");
+        setOnSearch(false);
+        setIsFocused(false);
+        Keyboard.dismiss();
+    };
 
     return (
         <View style={styles.textInputView}>
-            <TouchableOpacity >
-                <FontAwesomeIcon icon={faMagnifyingGlass} size={24} color={"#B2B4B6"}/>
+            <TouchableOpacity>
+                <FontAwesomeIcon icon={faMagnifyingGlass} size={24} color="#B2B4B6" />
             </TouchableOpacity>
 
             <TextInput
@@ -18,29 +41,34 @@ export const SearchBar = ({value ,setValue, onFocus})=>{
                 placeholderTextColor="gray"
                 style={styles.textInput}
                 value={value}
-                onChangeText={(text) => setValue(text)}
-                onFocus={onFocus}
+                onChangeText={setValue}
+                onFocus={handleFocus}
             />
+
+            {isFocused && (
+                <TouchableOpacity onPress={handleClear} style={{position :"absolute",right : 10}}>
+                    <FontAwesomeIcon icon={faXmark} size={24} color="#B2B4B6" />
+                </TouchableOpacity>
+            )}
         </View>
-    )
-}
-const {width, height} = Dimensions.get("window");
+    );
+};
+
 const styles = StyleSheet.create({
     textInput: {
-        width: width * 0.7,
-        paddingHorizontal: 10
+        width: width * 0.6,
+        paddingHorizontal: 10,
     },
     textInputView: {
-        margin : 4,
+        margin: 4,
         width: width * 0.8,
         alignItems: "center",
-        justifyContent: "space-between",
+        justifyContent: "flex-start",
         flexDirection: "row",
-        borderRadius: 16 ,
+        borderRadius: 16,
         paddingHorizontal: 10,
-        borderWidth : 2,
+        borderWidth: 2,
         borderColor: "#F3F3EB",
-        backgroundColor : "#F3F3EB"
-
+        backgroundColor: "#F3F3EB",
     },
-})
+});

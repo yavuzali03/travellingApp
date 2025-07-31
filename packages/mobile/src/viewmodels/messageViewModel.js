@@ -23,7 +23,7 @@ const useMessageViewModel = ({ roomId = null, currentUser = null, otherUser = nu
         }
     };
 
-    const fetchMessages = async (roomId, append = false) => {
+    const fetchMessages = async (append = false) => {
         if (!roomId) return;
         try {
             const skip = append ? messages.length : 0;

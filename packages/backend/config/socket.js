@@ -42,13 +42,15 @@ const socketIo = (app) => {
                     console.log("🆕 Yeni oda oluşturuldu:", roomId);
                 }
 
+                const populatedSender = await User.findById(message.sender).select('firstName lastName username email phoneNumber profileImage');
+
                 const newMessage = {
                     sender: message.sender,
                     content: message.content,
                     messageType: message.messageType || 'text',
                     createdAt: new Date(),
                     seenBy: [{
-                        user: message.sender,
+                        user: populatedSender,
                         seenAt: new Date(),
                     }]
                 };
@@ -60,7 +62,7 @@ const socketIo = (app) => {
                     io.to(uid.toString()).emit('rooms_updated');
                 });
 
-                const populatedSender = await User.findById(message.sender).select('firstName lastName username');
+
 
                 const finalMessage = {
                     ...newMessage,
@@ -72,6 +74,8 @@ const socketIo = (app) => {
                     ...finalMessage,
                     roomId,
                 });
+
+                console.log("mesaj geldi : ",finalMessage)
 
             } catch (err) {
                 console.error("❌ Mesaj kaydederken hata:", err.message);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, Image, Dimensions, Text, StyleSheet } from 'react-native';
+import {View, FlatList, Image, Dimensions, Text, StyleSheet, Platform} from 'react-native';
 import Video from 'react-native-video';
 
 const { width, height } = Dimensions.get('window');
@@ -7,6 +7,15 @@ const { width, height } = Dimensions.get('window');
 export const MediaPreview = ({ route }) => {
     const { mediaList, initialIndex = 0 } = route.params;
 
+    const convertToAccessibleUrl = (url) => {
+        if (!url) return null;
+
+        if (Platform.OS === 'android' && url.includes('localhost')) {
+            return url.replace('localhost', '10.0.2.2');
+        }
+
+        return url;
+    };
     const renderItem = ({ item }) => {
         return (
             <View style={styles.mediaContainer}>
@@ -29,7 +38,7 @@ export const MediaPreview = ({ route }) => {
                 {/* 🖼️ Medya */}
                 {item.messageType === 'image' ? (
                     <Image
-                        source={{ uri: item.content }}
+                        source={{ uri: convertToAccessibleUrl(item.content) }}
                         style={styles.media}
                         resizeMode="contain"
                     />

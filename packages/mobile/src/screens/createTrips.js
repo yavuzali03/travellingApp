@@ -19,6 +19,7 @@ import {DropdownList} from "../components/dropdownList";
 import useFriendsViewModel from "../viewmodels/friendsViewModel";
 import {CustomDateRangePicker} from "../components/CustomDateRangePicker";
 import TripCoverSelector from "../components/tripCoverSelector";
+import {useNavigation} from "@react-navigation/native";
 
 
 export const CreateTrips = () => {
@@ -38,6 +39,7 @@ export const CreateTrips = () => {
 
     const [dateModalVisible, setDateModalVisible] = useState(false);
 
+    const navigation = useNavigation();
 
     useEffect(() => {
         async function getFriends(userId) {
@@ -63,7 +65,10 @@ export const CreateTrips = () => {
                 endDate,
                 selectedFile,
             });
-            console.log(response)
+
+            if (response) {
+                Alert.alert("Gezi Oluşturuldu" ,"Gezi Oluşturuldu",[{text : "tamam" ,onPress: () => navigation.navigate("tripDashboard", {item : response})}])
+            }
         } catch (err) {
             console.error("Gezi oluşturulamadı:", err.message);
         }

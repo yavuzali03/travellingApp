@@ -56,7 +56,7 @@ export const UserSettings = () => {
 
                 try {
                     const res = await axios.post(
-                        `http://10.196.137.84:5002/api/upload-profile/${user._id}`,
+                        `http://10.0.2.2:5002/api/upload-profile/${user._id}`,
                         formData,
                         {
                             headers: {

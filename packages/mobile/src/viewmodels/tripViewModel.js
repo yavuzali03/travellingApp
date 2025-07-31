@@ -1,8 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {createTripService, getAllTrip, uploadTripCoverService} from '../services/tripServices';
+import {createTripService, getAllTrip, getTrip, uploadTripCoverService} from '../services/tripServices';
+import {getMyData} from "../utils/getMyData";
+import {useUser} from "../contexts/userContext";
+
 
 
 const useTripViewModel = () => {
+    const { setUser, setIsLoggedIn } = useUser();
+
     const createTrip = async ({ title, description, participants, creator, startDate, endDate, selectedFile }) => {
         try {
             const token = await AsyncStorage.getItem("authToken");
@@ -34,6 +39,8 @@ const useTripViewModel = () => {
                 newTrip.profileImage = result.imageUrl; // güncellenmiş trip objesi
             }
 
+            await getMyData({ setUser, setIsLoggedIn });
+
             return newTrip;
         } catch (error) {
             console.error("Trip ViewModel Error:", error.message);
@@ -50,9 +57,21 @@ const useTripViewModel = () => {
             console.log(err.message);
         }
     }
+
+    const getUserTrip = async (tripId) => {
+        try {
+
+            const response = await getTrip(tripId);
+            return response;
+
+        }catch(err) {
+            console.log(err.message);
+        }
+    }
     return {
         createTrip,
-        getUserTrips
+        getUserTrips,
+        getUserTrip
     };
 };
 

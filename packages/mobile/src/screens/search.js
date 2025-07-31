@@ -7,12 +7,13 @@ import {faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
 import {useStyle} from "../contexts/styleContext";
 import {RenderItem} from "../components/renderItem";
 
-export const Search = ({ searchValue }) => {
+export const Search = ({ searchValue ,onSearch, setOnSearch }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const test_API_URL = process.env.test_API_URL;
     const styleContext = useStyle();
     const {width,height} = useWindowDimensions();
+
     const debouncedSearch = debounce(async (text) => {
         if (!text) {
             setResults([]);
